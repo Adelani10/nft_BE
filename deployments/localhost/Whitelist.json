@@ -1,0 +1,169 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_max",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "Whitelist__AddressAlreadyWled",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Whitelist__ExceededMaxNumberOfWledAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "addWhitelist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "addressToWhitelisted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getMaxAddress",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getNumberWhitelistedAccounts",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "numberOfWhitelistedAddresses",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xff4d826e3205fbda4cd1947abde02ed58ad7c1c7ffa8d3dba77bf07c4ccb09c1",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "285948",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x513412cdeb40d1f08f7feee1edcbbebb4a0914613a88c99e1eba821785742b2e",
+    "transactionHash": "0xff4d826e3205fbda4cd1947abde02ed58ad7c1c7ffa8d3dba77bf07c4ccb09c1",
+    "logs": [],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "285948",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    10
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "72ec2ebf688974aae55fad03648b55d6",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_max\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"Whitelist__AddressAlreadyWled\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Whitelist__ExceededMaxNumberOfWledAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"addWhitelist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"addressToWhitelisted\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMaxAddress\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getNumberWhitelistedAccounts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"numberOfWhitelistedAddresses\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/whitelist.sol\":\"Whitelist\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/whitelist.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n\\npragma solidity ^0.8.9;\\n\\n\\nerror Whitelist__ExceededMaxNumberOfWledAddress();\\nerror Whitelist__AddressAlreadyWled();\\n\\n\\ncontract Whitelist {\\n    uint256 private immutable maxNumberOfWhitelistAddresses;\\n    uint256 public numberOfWhitelistedAddresses = 0;\\n\\n    mapping(address => bool) public addressToWhitelisted;\\n\\n    constructor(uint256 _max) {\\n        maxNumberOfWhitelistAddresses = _max;\\n    }\\n\\n    function addWhitelist() public {\\n        if(addressToWhitelisted[msg.sender]){\\n            revert Whitelist__AddressAlreadyWled();\\n        }\\n\\n        if(numberOfWhitelistedAddresses >= maxNumberOfWhitelistAddresses) {\\n            revert Whitelist__ExceededMaxNumberOfWledAddress();\\n        }\\n        addressToWhitelisted[msg.sender] = true;\\n        numberOfWhitelistedAddresses = numberOfWhitelistedAddresses + 1;\\n    }\\n\\n    function getMaxAddress() public view returns (uint256) {\\n        return maxNumberOfWhitelistAddresses;\\n    }\\n\\n    function getNumberWhitelistedAccounts() public view returns(uint256) {\\n        return numberOfWhitelistedAddresses;\\n    }\\n    \\n}\\n\",\"keccak256\":\"0x3ef3c0f3252a872ac2c2669f5764148bd5a1388e40e45cecb8a32f5de0efd995\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "bytecode": "0x60a06040526000805534801561001457600080fd5b506040516104f43803806104f48339818101604052810190610036919061007f565b8060808181525050506100ac565b600080fd5b6000819050919050565b61005c81610049565b811461006757600080fd5b50565b60008151905061007981610053565b92915050565b60006020828403121561009557610094610044565b5b60006100a38482850161006a565b91505092915050565b6080516104266100ce6000396000818161012201526101cc01526104266000f3fe608060405234801561001057600080fd5b50600436106100565760003560e01c8062ffead11461005b57806312722fa91461008b57806355aee5ef146100a95780636f01c0b4146100c7578063979396e1146100e5575b600080fd5b610075600480360381019061007091906102f6565b6100ef565b604051610082919061033e565b60405180910390f35b61009361010f565b6040516100a09190610372565b60405180910390f35b6100b1610118565b6040516100be9190610372565b60405180910390f35b6100cf61011e565b6040516100dc9190610372565b60405180910390f35b6100ed610146565b005b60016020528060005260406000206000915054906101000a900460ff1681565b60008054905090565b60005481565b60007f0000000000000000000000000000000000000000000000000000000000000000905090565b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16156101ca576040517f7755675b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b7f000000000000000000000000000000000000000000000000000000000000000060005410610225576040517fd53bde8100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60018060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550600160005461028b91906103bc565b600081905550565b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006102c382610298565b9050919050565b6102d3816102b8565b81146102de57600080fd5b50565b6000813590506102f0816102ca565b92915050565b60006020828403121561030c5761030b610293565b5b600061031a848285016102e1565b91505092915050565b60008115159050919050565b61033881610323565b82525050565b6000602082019050610353600083018461032f565b92915050565b6000819050919050565b61036c81610359565b82525050565b60006020820190506103876000830184610363565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006103c782610359565b91506103d283610359565b92508282019050808211156103ea576103e961038d565b5b9291505056fea2646970667358221220c8e736dd20a5965e9a7537943bb6c42c83e9065dfb7385852e2396f6872f9d1364736f6c63430008140033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100565760003560e01c8062ffead11461005b57806312722fa91461008b57806355aee5ef146100a95780636f01c0b4146100c7578063979396e1146100e5575b600080fd5b610075600480360381019061007091906102f6565b6100ef565b604051610082919061033e565b60405180910390f35b61009361010f565b6040516100a09190610372565b60405180910390f35b6100b1610118565b6040516100be9190610372565b60405180910390f35b6100cf61011e565b6040516100dc9190610372565b60405180910390f35b6100ed610146565b005b60016020528060005260406000206000915054906101000a900460ff1681565b60008054905090565b60005481565b60007f0000000000000000000000000000000000000000000000000000000000000000905090565b600160003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16156101ca576040517f7755675b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b7f000000000000000000000000000000000000000000000000000000000000000060005410610225576040517fd53bde8100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60018060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550600160005461028b91906103bc565b600081905550565b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006102c382610298565b9050919050565b6102d3816102b8565b81146102de57600080fd5b50565b6000813590506102f0816102ca565b92915050565b60006020828403121561030c5761030b610293565b5b600061031a848285016102e1565b91505092915050565b60008115159050919050565b61033881610323565b82525050565b6000602082019050610353600083018461032f565b92915050565b6000819050919050565b61036c81610359565b82525050565b60006020820190506103876000830184610363565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006103c782610359565b91506103d283610359565b92508282019050808211156103ea576103e961038d565b5b9291505056fea2646970667358221220c8e736dd20a5965e9a7537943bb6c42c83e9065dfb7385852e2396f6872f9d1364736f6c63430008140033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 3617,
+        "contract": "contracts/whitelist.sol:Whitelist",
+        "label": "numberOfWhitelistedAddresses",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 3621,
+        "contract": "contracts/whitelist.sol:Whitelist",
+        "label": "addressToWhitelisted",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
