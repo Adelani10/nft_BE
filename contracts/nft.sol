@@ -17,6 +17,7 @@ contract Nft is ERC721Enumerable, Ownable {
     uint256 private immutable PRICE;
     uint256 public tokenCounter;
     Whitelist whitelist;
+    mapping (address => bool) public hasMinted;
 
     uint256 public reservedTokens;
     uint256 public reservedTokensClaimed = 0;
@@ -75,22 +76,29 @@ contract Nft is ERC721Enumerable, Ownable {
     }
 
     function mint() public payable {
-        if (maxNumberOfTokens < totalSupply() + reservedTokens - reservedTokensClaimed) {
+
+        // Reserve tokens for whitelist holdersv that haven't minted
+        if (maxNumberOfTokens <= totalSupply() + reservedTokens - reservedTokensClaimed) {
             revert Nft__ExceededMaxSupply();
         }
 
+        // Whitelist addresses are allowed to mint for free but once
         if (whitelist.addressToWhitelisted(msg.sender) && msg.value < PRICE) {
-            if (balanceOf(msg.sender) > 0) {
+            if (hasMinted[msg.sender]) {
                 revert Nft__AlreadyOwned();
             }
             reservedTokensClaimed += 1;
-        } else {
+        } 
+        // Non-whitlisted addresses can only mint once and mint at 0.01 ETH
+        else {
+            require(!hasMinted[msg.sender], "Already minted");
             if (PRICE > msg.value) {
                 revert Nft__NotEnoughETH();
             }
         }
         tokenCounter += 1;
         _safeMint(msg.sender, tokenCounter);
+        hasMinted[msg.sender] = true;
         emit itemMinted(msg.sender, tokenCounter);
     }
 

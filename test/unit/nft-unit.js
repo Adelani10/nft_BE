@@ -52,18 +52,18 @@ const {assert, expect} = require("chai")
         it("reserves spots for wl holders ", async () => {
             const accounts = await ethers.getSigners()
 
-            for(let i = 0; i <= 10; i++) {
+            for(let i = 0; i < 10; i++) {
                 const connectedAccount = await nft.connect(accounts[i])
                 await connectedAccount.mint({value: MINT_FEE})
             }
 
-            newConnectAccount = await nft.connect(accounts[11])
+            newConnectAccount = await nft.connect(accounts[10])
             await expect(newConnectAccount.mint({value: MINT_FEE})).to.be.revertedWith("Nft__ExceededMaxSupply()")
         })
 
         it("updates the reservedTokensClaimed && reverts if you don't send enough ETH, or you already own an NFT", async () => {
             await expect(nft.mint()).to.be.revertedWith("Nft__NotEnoughETH()")
-            await whitelist.addWhitelist()
+            await whitelist.addWhitelist(deployer)
             await nft.mint()
             const res = await nft.reservedTokensClaimed()
             assert.equal(res.toString(), "1")
