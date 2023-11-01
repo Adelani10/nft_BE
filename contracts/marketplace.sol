@@ -125,7 +125,9 @@ contract Marketplace is ReentrancyGuard {
         uint256 tokenId,
         uint256 newPrice
     ) external isListed(nftAddress, tokenId) isOwner(nftAddress, tokenId, msg.sender) {
-        require(newPrice > 0, "Price must be valuable");
+        if (newPrice <= 0) {
+            revert Marketplace__PRICE_CANNOT_BE_ZERO();
+        }
         s_listing[nftAddress][tokenId].price = newPrice;
         emit ItemListed(msg.sender, nftAddress, tokenId, newPrice);
     }
